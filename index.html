@@ -212,6 +212,15 @@
             transform: rotate(180deg);
         }
 
+        .no-actions-message {
+            margin-top: 20px;
+            text-align: center;
+            color: #9aa0a6;
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
         .remedy-section {
             margin-top: 20px;
             padding-top: 20px;
@@ -421,7 +430,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Business Maturity</td>
-                                        <td><a href="#" class="link-style">Define SLAs</a></td>
+                                        <td><a href="action.html?id=authentication-service-business-maturity-define-slas" class="link-style" target="_blank">Define SLAs</a></td>
                                         <td><a href="#" class="link-style">Mike R.</a></td>
                                         <td>Jan 20</td>
                                         <td>99.9% uptime SLA</td>
@@ -506,14 +515,14 @@
                                 <tbody>
                                     <tr>
                                         <td>Operational Excellence</td>
-                                        <td><a href="#" class="link-style">Implement monitoring</a></td>
+                                        <td><a href="action.html?id=claims-api-operational-excellence-implement-monitoring" class="link-style" target="_blank">Implement monitoring</a></td>
                                         <td><a href="#" class="link-style">Lisa K.</a></td>
                                         <td>Jan 8</td>
                                         <td>&lt;5min detection</td>
                                     </tr>
                                     <tr>
                                         <td>Time to Market</td>
-                                        <td><a href="#" class="link-style">Setup CI/CD pipeline</a></td>
+                                        <td><a href="action.html?id=claims-api-time-to-market-setup-ci-cd-pipeline" class="link-style" target="_blank">Setup CI/CD pipeline</a></td>
                                         <td><a href="#" class="link-style">Tom H.</a></td>
                                         <td>Jan 12</td>
                                         <td>Daily deployments</td>
@@ -579,30 +588,7 @@
                             <span class="status-dot status-green"></span>
                         </li>
                     </ul>
-                    <button class="actions-toggle" onclick="toggleRemedy(this)">
-                        <span class="button-text">View Actions</span>
-                        <span class="chevron">▼</span>
-                    </button>
-                    <div class="remedy-section">
-                        <div class="table-container">
-                            <table class="remedy-table">
-                                <thead>
-                                    <tr>
-                                        <th>Metric</th>
-                                        <th>Action</th>
-                                        <th>Owner</th>
-                                        <th>Due Date</th>
-                                        <th>Success Metric</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="5" style="text-align: center; color: #5f6368;">No actions required - all metrics green</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <div class="no-actions-message">All metrics are healthy - no actions needed</div>
                 </div>
             </div>
 
@@ -679,28 +665,28 @@
                                 <tbody>
                                     <tr>
                                         <td>Time to Market</td>
-                                        <td><a href="#" class="link-style">Implement Redis caching</a></td>
+                                        <td><a href="action.html?id=payments-gateway-time-to-market-implement-redis-caching" class="link-style" target="_blank">Implement Redis caching</a></td>
                                         <td><a href="#" class="link-style">John S.</a></td>
                                         <td>Jan 15</td>
                                         <td>&lt;200ms response</td>
                                     </tr>
                                     <tr>
                                         <td>Service Quality</td>
-                                        <td><a href="#" class="link-style">Add integration test suite</a></td>
+                                        <td><a href="action.html?id=payments-gateway-service-quality-add-integration-test-suite" class="link-style" target="_blank">Add integration test suite</a></td>
                                         <td><a href="#" class="link-style">Sarah M.</a></td>
                                         <td>Jan 10</td>
                                         <td>&gt;80% coverage</td>
                                     </tr>
                                     <tr>
                                         <td>Business Maturity</td>
-                                        <td><a href="#" class="link-style">Document API endpoints</a></td>
+                                        <td><a href="action.html?id=payments-gateway-business-maturity-document-api-endpoints" class="link-style" target="_blank">Document API endpoints</a></td>
                                         <td><a href="#" class="link-style">Mike R.</a></td>
                                         <td>Jan 20</td>
                                         <td>100% documented</td>
                                     </tr>
                                     <tr>
                                         <td>Operational Excellence</td>
-                                        <td><a href="#" class="link-style">Set up monitoring alerts</a></td>
+                                        <td><a href="action.html?id=payments-gateway-operational-excellence-set-up-monitoring-alerts" class="link-style" target="_blank">Set up monitoring alerts</a></td>
                                         <td><a href="#" class="link-style">Lisa K.</a></td>
                                         <td>Jan 8</td>
                                         <td>&lt;5min detection</td>
@@ -785,21 +771,21 @@
                                 <tbody>
                                     <tr>
                                         <td>Service Quality</td>
-                                        <td><a href="#" class="link-style">Add E2E tests</a></td>
+                                        <td><a href="action.html?id=customer-portal-service-quality-add-e2e-tests" class="link-style" target="_blank">Add E2E tests</a></td>
                                         <td><a href="#" class="link-style">Alex J.</a></td>
                                         <td>Jan 18</td>
                                         <td>Critical paths covered</td>
                                     </tr>
                                     <tr>
                                         <td>Business Maturity</td>
-                                        <td><a href="#" class="link-style">Define KPIs</a></td>
+                                        <td><a href="action.html?id=customer-portal-business-maturity-define-kpis" class="link-style" target="_blank">Define KPIs</a></td>
                                         <td><a href="#" class="link-style">Emma L.</a></td>
                                         <td>Jan 22</td>
                                         <td>Dashboard live</td>
                                     </tr>
                                     <tr>
                                         <td>Architectural Gravity</td>
-                                        <td><a href="#" class="link-style">Refactor shared components</a></td>
+                                        <td><a href="action.html?id=customer-portal-architectural-gravity-refactor-shared-components" class="link-style" target="_blank">Refactor shared components</a></td>
                                         <td><a href="#" class="link-style">David K.</a></td>
                                         <td>Feb 1</td>
                                         <td>50% code reduction</td>
@@ -884,14 +870,14 @@
                                 <tbody>
                                     <tr>
                                         <td>Time to Market</td>
-                                        <td><a href="#" class="link-style">Implement templates</a></td>
+                                        <td><a href="action.html?id=notification-service-time-to-market-implement-templates" class="link-style" target="_blank">Implement templates</a></td>
                                         <td><a href="#" class="link-style">Nina P.</a></td>
                                         <td>Jan 25</td>
                                         <td>5 min setup time</td>
                                     </tr>
                                     <tr>
                                         <td>Business Maturity</td>
-                                        <td><a href="#" class="link-style">Track delivery rates</a></td>
+                                        <td><a href="action.html?id=notification-service-business-maturity-track-delivery-rates" class="link-style" target="_blank">Track delivery rates</a></td>
                                         <td><a href="#" class="link-style">Oliver S.</a></td>
                                         <td>Jan 30</td>
                                         <td>&gt;98% delivery rate</td>
