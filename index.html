@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Maturity Framework Dashboard</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts - Roboto for Material Design feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background: #f5f5f5;
+            padding: 24px;
+            color: #172b4d;
+        }
+
+        .dashboard-header {
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            font-weight: 500;
+            color: #172b4d;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-header p {
+            color: #5f6368;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            margin-bottom: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+
+        .service-name {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e8eaed;
+            color: #202124;
+            letter-spacing: 0.25px;
+        }
+
+        .metrics-list {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #3c4043;
+            font-weight: 400;
+        }
+
+        .metric-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .metric-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .status-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow:
+                2px 2px 4px rgba(0,0,0,0.2),
+                inset -1px -1px 2px rgba(0,0,0,0.1),
+                inset 1px 1px 2px rgba(255,255,255,0.5);
+            position: relative;
+        }
+
+        .status-dot::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+
+        .status-green {
+            background: linear-gradient(135deg, #34a853 0%, #28a745 100%);
+        }
+
+        .status-yellow {
+            background: linear-gradient(135deg, #ffd54f 0%, #ffc107 100%);
+        }
+
+        .status-red {
+            background: linear-gradient(135deg, #e57373 0%, #d73502 100%);
+        }
+
+        .actions-toggle {
+            margin-top: 20px;
+            color: white;
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            padding: 10px 20px;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+            align-self: flex-start;
+        }
+
+        .actions-toggle:hover {
+            background: linear-gradient(135deg, #1565c0 0%, #0a3d91 100%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+            transform: translateY(-1px);
+        }
+
+        .actions-toggle:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .chevron.expanded {
+            transform: rotate(180deg);
+        }
+
+        .remedy-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e8eaed;
+            display: none;
+        }
+
+        .remedy-section.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .remedy-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 14px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .remedy-table th {
+            background: #f8f9fa;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 500;
+            color: #202124;
+            border-bottom: 2px solid #dadce0;
+            border-right: 1px solid #dadce0;
+            white-space: nowrap;
+        }
+
+        .remedy-table th:last-child {
+            border-right: none;
+        }
+
+        .remedy-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #dadce0;
+            border-right: 1px solid #dadce0;
+            background: white;
+            white-space: nowrap;
+        }
+
+        .remedy-table td:last-child {
+            border-right: none;
+        }
+
+        .remedy-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .remedy-table tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .link-style {
+            color: #1a73e8;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .link-style:hover {
+            text-decoration: underline;
+        }
+
+        /* Different border colors based on service health */
+        .service-card.health-green {
+            border-left: 6px solid #34a853;
+        }
+
+        .service-card.health-yellow {
+            border-left: 6px solid #fbbc04;
+        }
+
+        .service-card.health-red {
+            border-left: 6px solid #ea4335;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+
+            .dashboard-header h1 {
+                font-size: 24px;
+            }
+
+            .service-name {
+                font-size: 18px;
+            }
+
+            .metric-item {
+                font-size: 14px;
+            }
+
+            .metric-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .status-dot {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="dashboard-header">
+            <h1>Service Maturity Framework</h1>
+            <p>Real-time health status across all services</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Authentication Service -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="service-card health-yellow">
+                    <h3 class="service-name">Authentication Service</h3>
+                    <ul class="metrics-list">
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
+                                Time to Market
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
+                                Operational Excellence
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
+                                Engineering Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
+                                Service Quality
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
+                                Business Maturity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
+                                Architectural Gravity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                    </ul>
+                    <button class="actions-toggle" onclick="toggleRemedy(this)">
+                        <span class="button-text">View Actions</span>
+                        <span class="chevron">▼</span>
+                    </button>
+                    <div class="remedy-section">
+                        <div class="table-container">
+                            <table class="remedy-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Action</th>
+                                        <th>Owner</th>
+                                        <th>Due Date</th>
+                                        <th>Success Metric</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Business Maturity</td>
+                                        <td><a href="#" class="link-style">Define SLAs</a></td>
+                                        <td><a href="#" class="link-style">Mike R.</a></td>
+                                        <td>Jan 20</td>
+                                        <td>99.9% uptime SLA</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Claims API -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="service-card health-red">
+                    <h3 class="service-name">Claims API</h3>
+                    <ul class="metrics-list">
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
+                                Time to Market
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
+                                Operational Excellence
+                            </span>
+                            <span class="status-dot status-red"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
+                                Engineering Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
+                                Service Quality
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
+                                Business Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
+                                Architectural Gravity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                    </ul>
+                    <button class="actions-toggle" onclick="toggleRemedy(this)">
+                        <span class="button-text">View Actions</span>
+                        <span class="chevron">▼</span>
+                    </button>
+                    <div class="remedy-section">
+                        <div class="table-container">
+                            <table class="remedy-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Action</th>
+                                        <th>Owner</th>
+                                        <th>Due Date</th>
+                                        <th>Success Metric</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Operational Excellence</td>
+                                        <td><a href="#" class="link-style">Implement monitoring</a></td>
+                                        <td><a href="#" class="link-style">Lisa K.</a></td>
+                                        <td>Jan 8</td>
+                                        <td>&lt;5min detection</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Time to Market</td>
+                                        <td><a href="#" class="link-style">Setup CI/CD pipeline</a></td>
+                                        <td><a href="#" class="link-style">Tom H.</a></td>
+                                        <td>Jan 12</td>
+                                        <td>Daily deployments</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policy Service -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="service-card health-green">
+                    <h3 class="service-name">Policy Service</h3>
+                    <ul class="metrics-list">
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
+                                Time to Market
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
+                                Operational Excellence
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
+                                Engineering Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
+                                Service Quality
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
+                                Business Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
+                                Architectural Gravity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                    </ul>
+                    <button class="actions-toggle" onclick="toggleRemedy(this)">
+                        <span class="button-text">View Actions</span>
+                        <span class="chevron">▼</span>
+                    </button>
+                    <div class="remedy-section">
+                        <div class="table-container">
+                            <table class="remedy-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Action</th>
+                                        <th>Owner</th>
+                                        <th>Due Date</th>
+                                        <th>Success Metric</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5" style="text-align: center; color: #5f6368;">No actions required - all metrics green</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Gateway -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="service-card health-red">
+                    <h3 class="service-name">Payments Gateway</h3>
+                    <ul class="metrics-list">
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
+                                Time to Market
+                            </span>
+                            <span class="status-dot status-red"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
+                                Operational Excellence
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
+                                Engineering Maturity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
+                                Service Quality
+                            </span>
+                            <span class="status-dot status-red"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
+                                Business Maturity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
+                                Architectural Gravity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                    </ul>
+                    <button class="actions-toggle" onclick="toggleRemedy(this)">
+                        <span class="button-text">View Actions</span>
+                        <span class="chevron">▼</span>
+                    </button>
+                    <div class="remedy-section">
+                        <div class="table-container">
+                            <table class="remedy-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Action</th>
+                                        <th>Owner</th>
+                                        <th>Due Date</th>
+                                        <th>Success Metric</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Time to Market</td>
+                                        <td><a href="#" class="link-style">Implement Redis caching</a></td>
+                                        <td><a href="#" class="link-style">John S.</a></td>
+                                        <td>Jan 15</td>
+                                        <td>&lt;200ms response</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Service Quality</td>
+                                        <td><a href="#" class="link-style">Add integration test suite</a></td>
+                                        <td><a href="#" class="link-style">Sarah M.</a></td>
+                                        <td>Jan 10</td>
+                                        <td>&gt;80% coverage</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Business Maturity</td>
+                                        <td><a href="#" class="link-style">Document API endpoints</a></td>
+                                        <td><a href="#" class="link-style">Mike R.</a></td>
+                                        <td>Jan 20</td>
+                                        <td>100% documented</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operational Excellence</td>
+                                        <td><a href="#" class="link-style">Set up monitoring alerts</a></td>
+                                        <td><a href="#" class="link-style">Lisa K.</a></td>
+                                        <td>Jan 8</td>
+                                        <td>&lt;5min detection</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Portal -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="service-card health-yellow">
+                    <h3 class="service-name">Customer Portal</h3>
+                    <ul class="metrics-list">
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
+                                Time to Market
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
+                                Operational Excellence
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
+                                Engineering Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
+                                Service Quality
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
+                                Business Maturity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
+                                Architectural Gravity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                    </ul>
+                    <button class="actions-toggle" onclick="toggleRemedy(this)">
+                        <span class="button-text">View Actions</span>
+                        <span class="chevron">▼</span>
+                    </button>
+                    <div class="remedy-section">
+                        <div class="table-container">
+                            <table class="remedy-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Action</th>
+                                        <th>Owner</th>
+                                        <th>Due Date</th>
+                                        <th>Success Metric</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Service Quality</td>
+                                        <td><a href="#" class="link-style">Add E2E tests</a></td>
+                                        <td><a href="#" class="link-style">Alex J.</a></td>
+                                        <td>Jan 18</td>
+                                        <td>Critical paths covered</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Business Maturity</td>
+                                        <td><a href="#" class="link-style">Define KPIs</a></td>
+                                        <td><a href="#" class="link-style">Emma L.</a></td>
+                                        <td>Jan 22</td>
+                                        <td>Dashboard live</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Architectural Gravity</td>
+                                        <td><a href="#" class="link-style">Refactor shared components</a></td>
+                                        <td><a href="#" class="link-style">David K.</a></td>
+                                        <td>Feb 1</td>
+                                        <td>50% code reduction</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Service -->
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="service-card health-yellow">
+                    <h3 class="service-name">Notification Service</h3>
+                    <ul class="metrics-list">
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
+                                Time to Market
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
+                                Operational Excellence
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
+                                Engineering Maturity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
+                                Service Quality
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
+                                Business Maturity
+                            </span>
+                            <span class="status-dot status-yellow"></span>
+                        </li>
+                        <li class="metric-item">
+                            <span class="metric-label">
+                                <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
+                                Architectural Gravity
+                            </span>
+                            <span class="status-dot status-green"></span>
+                        </li>
+                    </ul>
+                    <button class="actions-toggle" onclick="toggleRemedy(this)">
+                        <span class="button-text">View Actions</span>
+                        <span class="chevron">▼</span>
+                    </button>
+                    <div class="remedy-section">
+                        <div class="table-container">
+                            <table class="remedy-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Action</th>
+                                        <th>Owner</th>
+                                        <th>Due Date</th>
+                                        <th>Success Metric</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Time to Market</td>
+                                        <td><a href="#" class="link-style">Implement templates</a></td>
+                                        <td><a href="#" class="link-style">Nina P.</a></td>
+                                        <td>Jan 25</td>
+                                        <td>5 min setup time</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Business Maturity</td>
+                                        <td><a href="#" class="link-style">Track delivery rates</a></td>
+                                        <td><a href="#" class="link-style">Oliver S.</a></td>
+                                        <td>Jan 30</td>
+                                        <td>&gt;98% delivery rate</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleRemedy(button) {
+            const card = button.closest('.service-card');
+            const remedySection = card.querySelector('.remedy-section');
+            const chevron = button.querySelector('.chevron');
+            const buttonText = button.querySelector('.button-text');
+
+            // Close all other cards
+            document.querySelectorAll('.service-card').forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.querySelector('.remedy-section').classList.remove('show');
+                    otherCard.querySelector('.chevron').classList.remove('expanded');
+                    otherCard.querySelector('.button-text').textContent = 'View Actions';
+                }
+            });
+
+            // Toggle current card
+            const isExpanded = remedySection.classList.toggle('show');
+            chevron.classList.toggle('expanded');
+            buttonText.textContent = isExpanded ? 'Hide Actions' : 'View Actions';
+        }
+    </script>
+</body>
+</html>
