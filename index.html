@@ -81,22 +81,58 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
-            font-size: 16px;
+            padding: 12px 0;
+            font-size: 24px;
             color: #3c4043;
-            font-weight: 400;
+            font-weight: 700;
+            gap: 12px;
         }
 
         .metric-label {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
+            flex: 1;
         }
 
         .metric-icon {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+
+        .metric-info-btn {
+            background: transparent;
+            border: 2px solid #9aa0a6;
+            border-radius: 50%;
             width: 24px;
             height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: #5f6368;
+            font-size: 14px;
+            font-weight: 600;
+            font-style: italic;
+            transition: all 0.2s ease;
             flex-shrink: 0;
+            margin-left: auto;
+            margin-right: 8px;
+        }
+
+        .metric-info-btn:hover {
+            background: #f1f3f4;
+            border-color: #5f6368;
+            color: #202124;
+            text-decoration: none;
+        }
+
+        .metric-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .status-dot {
@@ -322,6 +358,7 @@
                                 <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
                                 Time to Market
                             </span>
+                            <a href="detail.html?service=Authentication_Service&dimension=Time_to_Market" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -329,6 +366,7 @@
                                 <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
                                 Operational Excellence
                             </span>
+                            <a href="detail.html?service=Authentication_Service&dimension=Operational_Excellence" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -336,6 +374,7 @@
                                 <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
                                 Engineering Maturity
                             </span>
+                            <a href="detail.html?service=Authentication_Service&dimension=Engineering_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -343,6 +382,7 @@
                                 <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
                                 Service Quality
                             </span>
+                            <a href="detail.html?service=Authentication_Service&dimension=Service_Quality" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -350,6 +390,7 @@
                                 <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
                                 Business Maturity
                             </span>
+                            <a href="detail.html?service=Authentication_Service&dimension=Business_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -357,6 +398,7 @@
                                 <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
                                 Architectural Gravity
                             </span>
+                            <a href="detail.html?service=Authentication_Service&dimension=Architectural_Gravity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                     </ul>
@@ -401,6 +443,7 @@
                                 <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
                                 Time to Market
                             </span>
+                            <a href="detail.html?service=Claims_API&dimension=Time_to_Market" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -408,6 +451,7 @@
                                 <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
                                 Operational Excellence
                             </span>
+                            <a href="detail.html?service=Claims_API&dimension=Operational_Excellence" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-red"></span>
                         </li>
                         <li class="metric-item">
@@ -415,6 +459,7 @@
                                 <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
                                 Engineering Maturity
                             </span>
+                            <a href="detail.html?service=Claims_API&dimension=Engineering_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -422,6 +467,7 @@
                                 <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
                                 Service Quality
                             </span>
+                            <a href="detail.html?service=Claims_API&dimension=Service_Quality" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -429,6 +475,7 @@
                                 <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
                                 Business Maturity
                             </span>
+                            <a href="detail.html?service=Claims_API&dimension=Business_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -436,6 +483,7 @@
                                 <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
                                 Architectural Gravity
                             </span>
+                            <a href="detail.html?service=Claims_API&dimension=Architectural_Gravity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                     </ul>
@@ -487,6 +535,7 @@
                                 <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
                                 Time to Market
                             </span>
+                            <a href="detail.html?service=Policy_Service&dimension=Time_to_Market" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -494,6 +543,7 @@
                                 <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
                                 Operational Excellence
                             </span>
+                            <a href="detail.html?service=Policy_Service&dimension=Operational_Excellence" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -501,6 +551,7 @@
                                 <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
                                 Engineering Maturity
                             </span>
+                            <a href="detail.html?service=Policy_Service&dimension=Engineering_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -508,6 +559,7 @@
                                 <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
                                 Service Quality
                             </span>
+                            <a href="detail.html?service=Policy_Service&dimension=Service_Quality" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -515,6 +567,7 @@
                                 <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
                                 Business Maturity
                             </span>
+                            <a href="detail.html?service=Policy_Service&dimension=Business_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -522,6 +575,7 @@
                                 <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
                                 Architectural Gravity
                             </span>
+                            <a href="detail.html?service=Policy_Service&dimension=Architectural_Gravity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                     </ul>
@@ -562,6 +616,7 @@
                                 <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
                                 Time to Market
                             </span>
+                            <a href="detail.html?service=Payments_Gateway&dimension=Time_to_Market" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-red"></span>
                         </li>
                         <li class="metric-item">
@@ -569,6 +624,7 @@
                                 <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
                                 Operational Excellence
                             </span>
+                            <a href="detail.html?service=Payments_Gateway&dimension=Operational_Excellence" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -576,6 +632,7 @@
                                 <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
                                 Engineering Maturity
                             </span>
+                            <a href="detail.html?service=Payments_Gateway&dimension=Engineering_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -583,6 +640,7 @@
                                 <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
                                 Service Quality
                             </span>
+                            <a href="detail.html?service=Payments_Gateway&dimension=Service_Quality" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-red"></span>
                         </li>
                         <li class="metric-item">
@@ -590,6 +648,7 @@
                                 <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
                                 Business Maturity
                             </span>
+                            <a href="detail.html?service=Payments_Gateway&dimension=Business_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -597,6 +656,7 @@
                                 <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
                                 Architectural Gravity
                             </span>
+                            <a href="detail.html?service=Payments_Gateway&dimension=Architectural_Gravity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                     </ul>
@@ -662,6 +722,7 @@
                                 <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
                                 Time to Market
                             </span>
+                            <a href="detail.html?service=Customer_Portal&dimension=Time_to_Market" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -669,6 +730,7 @@
                                 <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
                                 Operational Excellence
                             </span>
+                            <a href="detail.html?service=Customer_Portal&dimension=Operational_Excellence" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -676,6 +738,7 @@
                                 <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
                                 Engineering Maturity
                             </span>
+                            <a href="detail.html?service=Customer_Portal&dimension=Engineering_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -683,6 +746,7 @@
                                 <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
                                 Service Quality
                             </span>
+                            <a href="detail.html?service=Customer_Portal&dimension=Service_Quality" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -690,6 +754,7 @@
                                 <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
                                 Business Maturity
                             </span>
+                            <a href="detail.html?service=Customer_Portal&dimension=Business_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -697,6 +762,7 @@
                                 <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
                                 Architectural Gravity
                             </span>
+                            <a href="detail.html?service=Customer_Portal&dimension=Architectural_Gravity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                     </ul>
@@ -755,6 +821,7 @@
                                 <img src="Time to market.svg" alt="Time to Market" class="metric-icon">
                                 Time to Market
                             </span>
+                            <a href="detail.html?service=Notification_Service&dimension=Time_to_Market" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -762,6 +829,7 @@
                                 <img src="Operational Excellence.svg" alt="Operational Excellence" class="metric-icon">
                                 Operational Excellence
                             </span>
+                            <a href="detail.html?service=Notification_Service&dimension=Operational_Excellence" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -769,6 +837,7 @@
                                 <img src="Engineering maturity.svg" alt="Engineering Maturity" class="metric-icon">
                                 Engineering Maturity
                             </span>
+                            <a href="detail.html?service=Notification_Service&dimension=Engineering_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -776,6 +845,7 @@
                                 <img src="Service quality.svg" alt="Service Quality" class="metric-icon">
                                 Service Quality
                             </span>
+                            <a href="detail.html?service=Notification_Service&dimension=Service_Quality" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                         <li class="metric-item">
@@ -783,6 +853,7 @@
                                 <img src="Business maturity.svg" alt="Business Maturity" class="metric-icon">
                                 Business Maturity
                             </span>
+                            <a href="detail.html?service=Notification_Service&dimension=Business_Maturity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-yellow"></span>
                         </li>
                         <li class="metric-item">
@@ -790,6 +861,7 @@
                                 <img src="Architectural gravity.svg" alt="Architectural Gravity" class="metric-icon">
                                 Architectural Gravity
                             </span>
+                            <a href="detail.html?service=Notification_Service&dimension=Architectural_Gravity" class="metric-info-btn" title="View details">i</a>
                             <span class="status-dot status-green"></span>
                         </li>
                     </ul>
