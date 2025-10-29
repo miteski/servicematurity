@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action Details</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts - Roboto for Material Design feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background: #f5f5f5;
+            padding: 24px;
+            color: #172b4d;
+            min-height: 100vh;
+        }
+
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .back-button:hover {
+            color: #1557b0;
+            text-decoration: underline;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .detail-header {
+            border-bottom: 3px solid #e8eaed;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .detail-header h1 {
+            font-size: 32px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-header .breadcrumb {
+            font-size: 16px;
+            color: #5f6368;
+            background: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .detail-header .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: #5f6368;
+        }
+
+        .detail-header .breadcrumb-item a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .detail-header .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+
+        .detail-header .breadcrumb-item.active {
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .detail-content {
+            padding: 24px 0;
+        }
+
+        .info-table {
+            width: 100%;
+            margin-bottom: 32px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .info-table td {
+            padding: 16px 20px;
+            font-size: 16px;
+        }
+
+        .info-table td:first-child {
+            font-weight: 500;
+            color: #5f6368;
+            width: 180px;
+            background: #f8f9fa;
+        }
+
+        .info-table td:last-child {
+            color: #202124;
+        }
+
+        .detail-content h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+
+        .detail-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .detail-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3c4043;
+            margin-bottom: 16px;
+        }
+
+        .placeholder-section {
+            background: #f8f9fa;
+            border-left: 4px solid #1a73e8;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 16px;
+            margin-bottom: 24px;
+        }
+
+        .placeholder-section p {
+            margin: 0;
+            color: #5f6368;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <a href="index.html" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+        <div class="detail-card">
+            <div class="detail-header">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item" id="service-breadcrumb"></li>
+                        <li class="breadcrumb-item" id="metric-breadcrumb"></li>
+                        <li class="breadcrumb-item active" aria-current="page" id="action-breadcrumb"></li>
+                    </ol>
+                </nav>
+                <h1 id="page-title">Action Details</h1>
+            </div>
+
+            <div class="detail-content">
+                <table class="info-table">
+                    <tr>
+                        <td>Service</td>
+                        <td id="info-service">-</td>
+                    </tr>
+                    <tr>
+                        <td>Metric</td>
+                        <td id="info-metric">-</td>
+                    </tr>
+                    <tr>
+                        <td>Owner</td>
+                        <td id="info-owner">-</td>
+                    </tr>
+                    <tr>
+                        <td>Due Date</td>
+                        <td id="info-due-date">-</td>
+                    </tr>
+                    <tr>
+                        <td>Success Metric</td>
+                        <td id="info-success-metric">-</td>
+                    </tr>
+                </table>
+
+                <h2>Description</h2>
+                <div class="placeholder-section">
+                    <p>Action description and details will be displayed here. This can be linked to Jira, Confluence, Azure DevOps, or Trello for easy maintenance.</p>
+                </div>
+
+                <h2>Progress & Timeline</h2>
+                <div class="placeholder-section">
+                    <p>Progress tracking and timeline information will be displayed here.</p>
+                </div>
+
+                <h2>Related Resources</h2>
+                <div class="placeholder-section">
+                    <p>Links to related documentation, tickets, and resources will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Action data mapping - maps action IDs to their details
+        const actionData = {
+            'authentication-service-business-maturity-define-slas': {
+                service: 'Authentication Service',
+                metric: 'Business Maturity',
+                action: 'Define SLAs',
+                owner: 'Mike R.',
+                dueDate: 'Jan 20',
+                successMetric: '99.9% uptime SLA'
+            },
+            'claims-api-operational-excellence-implement-monitoring': {
+                service: 'Claims API',
+                metric: 'Operational Excellence',
+                action: 'Implement monitoring',
+                owner: 'Lisa K.',
+                dueDate: 'Jan 8',
+                successMetric: '<5min detection'
+            },
+            'claims-api-time-to-market-setup-ci-cd-pipeline': {
+                service: 'Claims API',
+                metric: 'Time to Market',
+                action: 'Setup CI/CD pipeline',
+                owner: 'Tom H.',
+                dueDate: 'Jan 12',
+                successMetric: 'Daily deployments'
+            },
+            'payments-gateway-time-to-market-implement-redis-caching': {
+                service: 'Payments Gateway',
+                metric: 'Time to Market',
+                action: 'Implement Redis caching',
+                owner: 'John S.',
+                dueDate: 'Jan 15',
+                successMetric: '<200ms response'
+            },
+            'payments-gateway-service-quality-add-integration-test-suite': {
+                service: 'Payments Gateway',
+                metric: 'Service Quality',
+                action: 'Add integration test suite',
+                owner: 'Sarah M.',
+                dueDate: 'Jan 10',
+                successMetric: '>80% coverage'
+            },
+            'payments-gateway-business-maturity-document-api-endpoints': {
+                service: 'Payments Gateway',
+                metric: 'Business Maturity',
+                action: 'Document API endpoints',
+                owner: 'Mike R.',
+                dueDate: 'Jan 20',
+                successMetric: '100% documented'
+            },
+            'payments-gateway-operational-excellence-set-up-monitoring-alerts': {
+                service: 'Payments Gateway',
+                metric: 'Operational Excellence',
+                action: 'Set up monitoring alerts',
+                owner: 'Lisa K.',
+                dueDate: 'Jan 8',
+                successMetric: '<5min detection'
+            },
+            'customer-portal-service-quality-add-e2e-tests': {
+                service: 'Customer Portal',
+                metric: 'Service Quality',
+                action: 'Add E2E tests',
+                owner: 'Alex J.',
+                dueDate: 'Jan 18',
+                successMetric: 'Critical paths covered'
+            },
+            'customer-portal-business-maturity-define-kpis': {
+                service: 'Customer Portal',
+                metric: 'Business Maturity',
+                action: 'Define KPIs',
+                owner: 'Emma L.',
+                dueDate: 'Jan 22',
+                successMetric: 'Dashboard live'
+            },
+            'customer-portal-architectural-gravity-refactor-shared-components': {
+                service: 'Customer Portal',
+                metric: 'Architectural Gravity',
+                action: 'Refactor shared components',
+                owner: 'David K.',
+                dueDate: 'Feb 1',
+                successMetric: '50% code reduction'
+            },
+            'notification-service-time-to-market-implement-templates': {
+                service: 'Notification Service',
+                metric: 'Time to Market',
+                action: 'Implement templates',
+                owner: 'Nina P.',
+                dueDate: 'Jan 25',
+                successMetric: '5 min setup time'
+            },
+            'notification-service-business-maturity-track-delivery-rates': {
+                service: 'Notification Service',
+                metric: 'Business Maturity',
+                action: 'Track delivery rates',
+                owner: 'Oliver S.',
+                dueDate: 'Jan 30',
+                successMetric: '>98% delivery rate'
+            }
+        };
+
+        // Parse URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const actionId = urlParams.get('id') || '';
+
+        // Get action data
+        const action = actionData[actionId];
+
+        if (action) {
+            // Update page title
+            document.title = `${action.action} | Action Details`;
+            document.getElementById('page-title').textContent = action.action;
+
+            // Update breadcrumbs
+            document.getElementById('service-breadcrumb').textContent = action.service;
+            document.getElementById('metric-breadcrumb').textContent = action.metric;
+            document.getElementById('action-breadcrumb').textContent = action.action;
+
+            // Update info table
+            document.getElementById('info-service').textContent = action.service;
+            document.getElementById('info-metric').textContent = action.metric;
+            document.getElementById('info-owner').textContent = action.owner;
+            document.getElementById('info-due-date').textContent = action.dueDate;
+            document.getElementById('info-success-metric').textContent = action.successMetric;
+        } else {
+            // Unknown action
+            document.getElementById('page-title').textContent = 'Action Not Found';
+            document.getElementById('service-breadcrumb').textContent = 'Unknown';
+            document.getElementById('metric-breadcrumb').textContent = 'Unknown';
+            document.getElementById('action-breadcrumb').textContent = 'Unknown';
+        }
+    </script>
+</body>
+</html>
