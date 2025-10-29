@@ -212,6 +212,15 @@
             transform: rotate(180deg);
         }
 
+        .no-actions-message {
+            margin-top: 20px;
+            text-align: center;
+            color: #9aa0a6;
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
         .remedy-section {
             margin-top: 20px;
             padding-top: 20px;
@@ -579,30 +588,7 @@
                             <span class="status-dot status-green"></span>
                         </li>
                     </ul>
-                    <button class="actions-toggle" onclick="toggleRemedy(this)">
-                        <span class="button-text">View Actions</span>
-                        <span class="chevron">▼</span>
-                    </button>
-                    <div class="remedy-section">
-                        <div class="table-container">
-                            <table class="remedy-table">
-                                <thead>
-                                    <tr>
-                                        <th>Metric</th>
-                                        <th>Action</th>
-                                        <th>Owner</th>
-                                        <th>Due Date</th>
-                                        <th>Success Metric</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="5" style="text-align: center; color: #5f6368;">No actions required - all metrics green</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <div class="no-actions-message">All metrics are healthy - no actions needed</div>
                 </div>
             </div>
 
