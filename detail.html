@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Maturity Details</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts - Roboto for Material Design feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background: #f5f5f5;
+            padding: 24px;
+            color: #172b4d;
+            min-height: 100vh;
+        }
+
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .back-button:hover {
+            color: #1557b0;
+            text-decoration: underline;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .detail-header {
+            border-bottom: 3px solid #e8eaed;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .detail-header h1 {
+            font-size: 36px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-header .breadcrumb {
+            font-size: 16px;
+            color: #5f6368;
+            background: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .detail-header .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: #5f6368;
+        }
+
+        .detail-header .breadcrumb-item a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .detail-header .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+
+        .detail-header .breadcrumb-item.active {
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .detail-content {
+            padding: 24px 0;
+        }
+
+        .detail-content h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 16px;
+            margin-top: 32px;
+        }
+
+        .detail-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .detail-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3c4043;
+            margin-bottom: 16px;
+        }
+
+        .placeholder-message {
+            background: #f8f9fa;
+            border-left: 4px solid #1a73e8;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 24px;
+        }
+
+        .placeholder-message p {
+            margin: 0;
+            color: #5f6368;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="detail-container">
+        <a href="index.html" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+        <div class="detail-card">
+            <div class="detail-header">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item" id="service-breadcrumb"></li>
+                        <li class="breadcrumb-item active" aria-current="page" id="dimension-breadcrumb"></li>
+                    </ol>
+                </nav>
+                <h1 id="page-title">Metric Details</h1>
+            </div>
+
+            <div class="detail-content">
+                <h2>Overview</h2>
+                <div class="placeholder-message">
+                    <p>Detailed information for this metric will be displayed here. This section is currently under development.</p>
+                </div>
+
+                <h2>Current Status</h2>
+                <div class="placeholder-message">
+                    <p>Status information and trends will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const service = urlParams.get('service') || 'Unknown Service';
+        const dimension = urlParams.get('dimension') || 'Unknown Dimension';
+
+        // Format names for display (replace underscores with spaces)
+        const serviceName = service.replace(/_/g, ' ');
+        const dimensionName = dimension.replace(/_/g, ' ');
+
+        // Update page title and breadcrumbs
+        document.title = `${serviceName} - ${dimensionName} | Service Maturity Details`;
+        document.getElementById('page-title').textContent = dimensionName;
+        document.getElementById('service-breadcrumb').textContent = serviceName;
+        document.getElementById('dimension-breadcrumb').textContent = dimensionName;
+    </script>
+</body>
+</html>
